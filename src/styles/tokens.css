@@ -1,0 +1,215 @@
+/* =============================================================================
+   CommTravel — design tokens
+   -----------------------------------------------------------------------------
+   The entire theme lives here. Change a value in this file and it propagates
+   through every component; nothing downstream hard-codes a colour, radius,
+   duration or type size.
+
+   Colour and type values were sampled from the live commbank.com.au/travel.html
+   via getComputedStyle rather than eyeballed:
+
+     brand yellow   rgb(255, 204, 0)    #FFCC00   buttons + accents
+     ink            rgb(30, 30, 30)     #1E1E1E   body copy and headings
+     ink-strong     rgb(35, 31, 32)     #231F20   diamond mark, text on yellow
+     band grey      rgb(244, 244, 244)  #F4F4F4   section bands / page ground
+     border grey    rgb(112, 109, 110)  #706D6E   secondary button outline
+     mid grey       rgb(79, 76, 77)     #4F4C4D   supporting text
+
+     type           CBABeaconSans (proprietary) -> Inter
+                    h1 40/48 w800 · h2 32 w800 · body 16/24 w400 · title case
+     primary CTA    #FFCC00 fill, #231F20 text, radius 24px, padding 0 24px
+     secondary CTA  transparent, 1px solid #706D6E, #231F20 text
+
+   ACCESSIBILITY RULE, enforced by the token names below:
+   yellow is a FILL, never a text colour. #FFCC00 on white is 1.44:1 and fails
+   WCAG AA at every size. There is deliberately no `--color-text-brand` token —
+   if you want brand emphasis on a light ground, use `--color-surface-brand`
+   with `--color-on-brand` text, or the 3px `--color-accent-bar` rule.
+   ============================================================================= */
+
+:root {
+  /* ---------------------------------------------------------------------------
+     1. Palette — raw values. Components should use the semantic tokens in §2,
+        not these. Kept separate so a rebrand only touches this block.
+     ------------------------------------------------------------------------- */
+  --cba-yellow: #ffcc00;
+  --cba-yellow-hover: #e6b800; /* 10% darker, keeps #231F20 text at 11.2:1 */
+  --cba-yellow-soft: #fff9e0; /* tint for brand-washed surfaces */
+
+  --cba-ink: #1e1e1e; /* 16.1:1 on white */
+  --cba-ink-strong: #231f20; /* 15.4:1 on white */
+  --cba-grey-mid: #4f4c4d; /* 8.6:1 on white — safe for supporting text */
+  --cba-grey-border: #706d6e; /* 5.1:1 on white — safe for text AND borders */
+  --cba-grey-line: #d8d8d8; /* hairlines only, never text */
+  --cba-grey-band: #f4f4f4;
+  --cba-grey-band-deep: #ebebeb;
+  --cba-white: #ffffff;
+
+  /* Status — each chosen to clear 4.5:1 on white so it can carry text.
+     Amber is the exception: no amber passes AA on white as text, so the amber
+     status is expressed as a SURFACE (--color-surface-warn) with dark text. */
+  --status-success: #06763d; /* 5.3:1 */
+  --status-success-surface: #e6f4ec;
+  --status-warn-text: #8a5a00; /* 5.4:1 — a brown-amber that actually passes */
+  --status-warn-surface: #fff4d6;
+  --status-warn-edge: #b26b00;
+  --status-alert: #b3001b; /* 7.3:1 */
+  --status-alert-surface: #fdeaec;
+  --status-info: #00558b; /* 7.5:1 */
+  --status-info-surface: #e6f0f7;
+
+  /* ---------------------------------------------------------------------------
+     2. Semantic aliases — what components actually reference.
+     ------------------------------------------------------------------------- */
+  --color-surface: var(--cba-white);
+  --color-surface-band: var(--cba-grey-band);
+  --color-surface-band-deep: var(--cba-grey-band-deep);
+  --color-surface-inverse: var(--cba-ink-strong);
+  --color-surface-brand: var(--cba-yellow);
+  --color-surface-brand-soft: var(--cba-yellow-soft);
+
+  --color-text: var(--cba-ink);
+  --color-text-muted: var(--cba-grey-mid);
+  --color-text-subtle: var(--cba-grey-border);
+  --color-text-inverse: var(--cba-white);
+  --color-on-brand: var(--cba-ink-strong); /* the ONLY thing that sits on yellow */
+
+  --color-border: var(--cba-grey-line);
+  --color-border-strong: var(--cba-grey-border);
+  --color-accent-bar: var(--cba-yellow); /* 3–4px rules and underlines */
+
+  --color-success: var(--status-success);
+  --color-success-surface: var(--status-success-surface);
+  --color-warn: var(--status-warn-text);
+  --color-warn-surface: var(--status-warn-surface);
+  --color-warn-edge: var(--status-warn-edge);
+  --color-alert: var(--status-alert);
+  --color-alert-surface: var(--status-alert-surface);
+  --color-info: var(--status-info);
+  --color-info-surface: var(--status-info-surface);
+
+  --color-focus: #00558b; /* focus ring, 7.5:1 on white and on yellow */
+
+  /* ---------------------------------------------------------------------------
+     3. Type — Inter standing in for CBABeaconSans.
+        Display sizes step down on small screens (see the media query below).
+     ------------------------------------------------------------------------- */
+  --font-sans:
+    'Inter Variable', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', helvetica, arial,
+    sans-serif;
+  --font-numeric: var(--font-sans);
+
+  --fs-display: 2.5rem; /* 40px — matches the live h1 */
+  --fs-h2: 2rem; /* 32px — matches the live h2 */
+  --fs-h3: 1.5rem; /* 24px */
+  --fs-h4: 1.25rem; /* 20px */
+  --fs-body: 1rem; /* 16px */
+  --fs-sm: 0.875rem; /* 14px */
+  --fs-xs: 0.75rem; /* 12px */
+
+  /* Money figures get their own ramp — the big local-currency amount on a
+     transaction receipt is the loudest thing on the screen. */
+  --fs-figure-xl: 2.5rem; /* 40px — ¥1,480 on a receipt */
+  --fs-figure-lg: 2rem; /* 32px */
+  --fs-figure-md: 1.25rem; /* 20px */
+
+  --lh-display: 1.2; /* 40/48 on the live site */
+  --lh-heading: 1.25;
+  --lh-body: 1.5; /* 16/24 on the live site */
+  --lh-tight: 1.3;
+
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 800; /* CBA headings are heavy, not light */
+
+  --tracking-tight: -0.02em; /* display sizes only */
+  --tracking-normal: 0;
+  --tracking-wide: 0.04em; /* small caps-ish labels */
+
+  /* ---------------------------------------------------------------------------
+     4. Space — 4px base grid.
+     ------------------------------------------------------------------------- */
+  --space-0: 0;
+  --space-1: 0.25rem; /* 4 */
+  --space-2: 0.5rem; /* 8 */
+  --space-3: 0.75rem; /* 12 */
+  --space-4: 1rem; /* 16 */
+  --space-5: 1.25rem; /* 20 */
+  --space-6: 1.5rem; /* 24 */
+  --space-8: 2rem; /* 32 */
+  --space-10: 2.5rem; /* 40 */
+  --space-12: 3rem; /* 48 */
+  --space-16: 4rem; /* 64 */
+  --space-20: 5rem; /* 80 */
+  --space-24: 6rem; /* 96 */
+
+  /* ---------------------------------------------------------------------------
+     5. Radius — cards are 8px; CTAs are full pills, as on the live site.
+     ------------------------------------------------------------------------- */
+  --r-xs: 4px;
+  --r-card: 8px;
+  --r-input: 8px;
+  --r-lg: 12px;
+  --r-pill: 999px;
+
+  /* ---------------------------------------------------------------------------
+     6. Elevation — CBA uses borders, not drop shadows. Shadows here are
+        reserved for things that genuinely float (toasts, modals, drag state).
+     ------------------------------------------------------------------------- */
+  --shadow-none: none;
+  --shadow-sm: 0 1px 2px rgba(35, 31, 32, 0.06);
+  --shadow-float: 0 4px 16px rgba(35, 31, 32, 0.12);
+  --shadow-drag: 0 8px 24px rgba(35, 31, 32, 0.18);
+
+  /* ---------------------------------------------------------------------------
+     7. Layout
+     ------------------------------------------------------------------------- */
+  --container-max: 1200px;
+  --container-pad: var(--space-4);
+  --grid-gap: var(--space-6);
+  --header-h: 60px;
+
+  /* ---------------------------------------------------------------------------
+     8. Motion — Up-style energy lives here, not in the copy.
+        Every one of these collapses to 1ms under prefers-reduced-motion,
+        handled globally in base.css.
+     ------------------------------------------------------------------------- */
+  --dur-instant: 90ms;
+  --dur-fast: 150ms;
+  --dur-base: 240ms;
+  --dur-slow: 420ms;
+  --dur-receipt: 480ms; /* a receipt sliding into the feed */
+  --ease: cubic-bezier(0.2, 0, 0, 1); /* standard: fast out, settle in */
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1); /* savings-counter pop */
+
+  /* Simulation cadence, exposed as tokens so the demo can be re-timed here. */
+  --tick-rate-ms: 3000; /* live FX ticker */
+
+  --z-sticky: 20;
+  --z-header: 40;
+  --z-panel: 50;
+  --z-toast: 60;
+  --z-modal: 70;
+}
+
+/* Small screens: pull the display sizes down so the 390px dashboard doesn't
+   have headings wrapping to four lines. Everything else holds. */
+@media (max-width: 600px) {
+  :root {
+    --fs-display: 1.875rem; /* 30 */
+    --fs-h2: 1.5rem; /* 24 */
+    --fs-h3: 1.25rem; /* 20 */
+    --fs-figure-xl: 2.125rem; /* 34 */
+    --fs-figure-lg: 1.625rem; /* 26 */
+    --container-pad: var(--space-4);
+  }
+}
+
+@media (min-width: 900px) {
+  :root {
+    --container-pad: var(--space-8);
+    --header-h: 72px;
+  }
+}

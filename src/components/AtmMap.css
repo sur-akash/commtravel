@@ -1,0 +1,257 @@
+/* =============================================================================
+   ATM locator.
+   ============================================================================= */
+
+.atm {
+  display: grid;
+  gap: var(--space-4);
+}
+
+/* --- Legend and filter ----------------------------------------------------------- */
+
+.atm__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.atm__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.atm__key {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+}
+
+.atm__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--r-pill);
+  flex: none;
+}
+
+.atm__dot--free {
+  background: var(--color-success);
+}
+
+.atm__dot--fee {
+  background: var(--color-warn-edge);
+}
+
+.atm__filter {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  cursor: pointer;
+}
+
+.atm__filter input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--cba-ink-strong);
+}
+
+/* --- The map --------------------------------------------------------------------- */
+
+.atm__stage {
+  position: relative;
+  border: 1px solid var(--color-border);
+  border-radius: var(--r-card);
+  overflow: hidden;
+  background: #f4f2ef;
+}
+
+.atm__canvas {
+  display: block;
+  width: 100%;
+  height: 340px;
+}
+
+@media (min-width: 720px) {
+  .atm__canvas {
+    height: 440px;
+  }
+}
+
+.atm__canvas:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: -3px;
+}
+
+/* --- Controls ---------------------------------------------------------------------- */
+
+.atm__controls {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  display: grid;
+  gap: var(--space-2);
+}
+
+.atm__controls button {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--r-xs);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-bold);
+  line-height: 1;
+  color: var(--color-text);
+  box-shadow: var(--shadow-sm);
+  transition: background-color var(--dur-fast) var(--ease);
+}
+
+.atm__controls button:hover {
+  background: var(--color-surface-band);
+}
+
+.atm__recentre {
+  margin-top: var(--space-2);
+}
+
+.atm__attribution {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: var(--space-1) var(--space-3);
+  background: rgba(255, 255, 255, 0.86);
+  border-top-right-radius: var(--r-xs);
+  font-size: 10px;
+  color: var(--color-text-muted);
+}
+
+/* The scale bar is drawn into the canvas bottom-left, so keep the attribution
+   from sitting on top of it. */
+.atm__attribution {
+  left: auto;
+  right: 0;
+  border-top-right-radius: 0;
+  border-top-left-radius: var(--r-xs);
+}
+
+/* --- Selected point ------------------------------------------------------------------ */
+
+.atm__selected {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--r-card);
+  background: var(--color-surface-band);
+  flex-wrap: wrap;
+}
+
+.atm__selected-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-pill);
+  background: var(--color-warn-surface);
+  color: var(--color-warn);
+}
+
+.atm__selected-icon.is-free {
+  background: var(--color-success-surface);
+  color: var(--color-success);
+}
+
+.atm__selected-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.atm__selected-name {
+  font-weight: var(--fw-bold);
+}
+
+.atm__selected-detail {
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+}
+
+/* --- Nearest list ---------------------------------------------------------------------- */
+
+.atm__list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-1);
+}
+
+@media (min-width: 780px) {
+  .atm__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.atm__row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  text-align: left;
+  border: 1px solid transparent;
+  border-radius: var(--r-card);
+  background: var(--color-surface);
+  transition:
+    background-color var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease);
+}
+
+.atm__row:hover {
+  background: var(--color-surface-band);
+}
+
+.atm__row.is-selected {
+  border-color: var(--color-text);
+  background: var(--color-surface-band);
+}
+
+.atm__row-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.atm__row-name {
+  display: block;
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-sm);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.atm__row-detail {
+  display: block;
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+}
+
+.atm__row-fee {
+  flex: none;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-bold);
+  font-variant-numeric: tabular-nums;
+}
+
+.atm__note {
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+  max-width: 72ch;
+}

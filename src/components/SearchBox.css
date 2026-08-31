@@ -1,0 +1,154 @@
+/* =============================================================================
+   Destination search box.
+   ============================================================================= */
+
+.search {
+  position: relative;
+  display: grid;
+  gap: var(--space-2);
+}
+
+.search__label {
+  font-size: var(--fs-body);
+  font-weight: var(--fw-semibold);
+}
+
+.search__field {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding-inline: var(--space-3);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--r-input);
+  background: var(--color-surface);
+  transition: border-color var(--dur-fast) var(--ease);
+}
+
+.search__field:focus-within {
+  border-color: var(--color-text);
+}
+
+.search__icon {
+  flex: none;
+  color: var(--color-text-subtle);
+}
+
+.search__input {
+  flex: 1;
+  min-width: 0;
+  min-height: 52px;
+  border: 0;
+  background: none;
+  outline: none;
+  font-size: var(--fs-body);
+}
+
+.search--lg .search__input {
+  min-height: 60px;
+  font-size: var(--fs-h4);
+}
+
+.search__input::placeholder {
+  color: var(--color-text-subtle);
+}
+
+.search__clear {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--r-pill);
+  color: var(--color-text-muted);
+}
+
+.search__clear:hover {
+  background: var(--color-surface-band);
+  color: var(--color-text);
+}
+
+.search__hint {
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+}
+
+/* --- Results ------------------------------------------------------------------- */
+
+.search__list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: var(--z-panel);
+  margin-top: var(--space-1);
+  max-height: 320px;
+  overflow-y: auto;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--r-card);
+  box-shadow: var(--shadow-float);
+  padding: var(--space-1);
+}
+
+/* The label sits above the field, so the list has to clear both. */
+.search:has(.search__label) .search__list {
+  top: calc(100% + 0px);
+}
+
+.search__option {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  text-align: left;
+  border-radius: var(--r-xs);
+  background: none;
+}
+
+.search__option.is-active {
+  background: var(--color-surface-band);
+}
+
+.search__option-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.search__option-name {
+  display: block;
+  font-weight: var(--fw-semibold);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.search__option-sub {
+  display: block;
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+}
+
+.search__option-currency {
+  flex: none;
+  padding: 2px var(--space-2);
+  border-radius: var(--r-xs);
+  border: 1px solid var(--color-border);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  color: var(--color-text-muted);
+}
+
+/* A currency the Travel Money Card can actually hold gets the brand fill. */
+.search__option-currency.is-supported {
+  background: var(--color-surface-brand);
+  border-color: var(--color-surface-brand);
+  color: var(--color-on-brand);
+}
+
+.search__empty {
+  padding: var(--space-4);
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+  text-align: center;
+}

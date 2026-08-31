@@ -1,0 +1,149 @@
+/* =============================================================================
+   Emergency route.
+   ============================================================================= */
+
+.emergency {
+  padding-block: var(--space-8) var(--space-12);
+}
+
+.emergency__head {
+  margin-bottom: var(--space-8);
+}
+
+.emergency__title {
+  margin-top: var(--space-2);
+  font-size: var(--fs-h2);
+}
+
+.emergency__lede {
+  margin-top: var(--space-3);
+  color: var(--color-text-muted);
+  max-width: 62ch;
+}
+
+.emergency__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-6);
+}
+
+@media (min-width: 980px) {
+  .emergency__grid {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+.emergency__aside {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4);
+}
+
+.emergency__aside-title {
+  font-size: var(--fs-h4);
+  margin-bottom: var(--space-3);
+}
+
+.emergency__aside-body {
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-3);
+}
+
+/* --- Before you fly ---------------------------------------------------------------- */
+
+.emergency__checklist {
+  display: grid;
+  gap: var(--space-2);
+  font-size: var(--fs-sm);
+}
+
+.emergency__checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+
+.emergency__checklist svg {
+  flex: none;
+  margin-top: 3px;
+  color: var(--color-success);
+}
+
+/* --- Playbook ---------------------------------------------------------------------- */
+
+.emergency__playbook {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.emergency__play {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  padding-bottom: var(--space-5);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.emergency__playbook li:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.emergency__play-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--r-pill);
+  background: var(--color-surface-band);
+  color: var(--color-text);
+}
+
+.emergency__play-body {
+  min-width: 0;
+}
+
+.emergency__play-when {
+  font-weight: var(--fw-bold);
+  margin-bottom: var(--space-1);
+}
+
+.emergency__play-then {
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+}
+
+.emergency__play-tip {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--r-xs);
+  background: var(--color-surface-brand-soft);
+  font-size: var(--fs-sm);
+}
+
+.emergency__play-tip svg {
+  flex: none;
+  margin-top: 3px;
+}
+
+.emergency__footnote {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+}
+
+.emergency__footnote svg {
+  flex: none;
+  margin-top: 2px;
+}

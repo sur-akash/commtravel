@@ -1,0 +1,173 @@
+/* =============================================================================
+   Currency stack — the fallback order, as a draggable list.
+   ============================================================================= */
+
+.stack {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-2);
+}
+
+.stack__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--r-card);
+  background: var(--color-surface);
+  transition:
+    transform var(--dur-fast) var(--ease),
+    box-shadow var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease),
+    opacity var(--dur-fast) var(--ease);
+  touch-action: none;
+}
+
+.stack__item--dragging {
+  box-shadow: var(--shadow-drag);
+  border-color: var(--color-text);
+  transform: scale(1.015);
+  opacity: 0.97;
+}
+
+.stack__item--destination {
+  border-left: 4px solid var(--color-accent-bar);
+}
+
+.stack__handle {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--r-xs);
+  color: var(--color-text-subtle);
+  cursor: grab;
+}
+
+.stack__handle:hover {
+  background: var(--color-surface-band);
+  color: var(--color-text);
+}
+
+.stack__handle:active {
+  cursor: grabbing;
+}
+
+.stack__rank {
+  flex: none;
+  width: 22px;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  color: var(--color-text-subtle);
+  font-variant-numeric: tabular-nums;
+}
+
+.stack__body {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.stack__code {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.stack__balance {
+  font-size: var(--fs-figure-md);
+  font-weight: var(--fw-bold);
+  font-variant-numeric: tabular-nums;
+}
+
+.stack__name {
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+}
+
+.stack__rates {
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.stack__delta {
+  flex: none;
+  display: grid;
+  justify-items: end;
+  gap: 2px;
+  text-align: right;
+}
+
+.stack__delta-value {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-sm);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.stack__delta-value--up {
+  color: var(--color-success);
+}
+
+.stack__delta-value--down {
+  color: var(--color-alert);
+}
+
+.stack__delta-label {
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.stack__spark {
+  flex: none;
+  width: 64px;
+  display: none;
+}
+
+@media (min-width: 560px) {
+  .stack__spark {
+    display: block;
+  }
+}
+
+.stack__fallback {
+  margin-top: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface-band);
+  border-radius: var(--r-card);
+  font-size: var(--fs-sm);
+}
+
+.stack__fallback strong {
+  font-weight: var(--fw-bold);
+}
+
+/* The fallback sentence rewrites itself on reorder — a brief highlight makes it
+   obvious that the reorder had a consequence. */
+.stack__fallback--changed {
+  animation: fallback-flash var(--dur-slow) var(--ease) both;
+}
+
+@keyframes fallback-flash {
+  from {
+    background: var(--color-surface-brand);
+  }
+  to {
+    background: var(--color-surface-band);
+  }
+}
+
+.stack__hint {
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+  margin-top: var(--space-2);
+}

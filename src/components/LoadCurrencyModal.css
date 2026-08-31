@@ -1,0 +1,174 @@
+/* =============================================================================
+   Load currency modal.
+   ============================================================================= */
+
+.modal__scrim {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  background: rgba(35, 31, 32, 0.5);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  animation: modal-scrim-in var(--dur-fast) var(--ease) both;
+}
+
+@keyframes modal-scrim-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (min-width: 640px) {
+  .modal__scrim {
+    align-items: center;
+    padding: var(--space-6);
+  }
+}
+
+.modal {
+  background: var(--color-surface);
+  border-radius: var(--r-card) var(--r-card) 0 0;
+  width: 100%;
+  max-width: 460px;
+  max-height: 90dvh;
+  overflow-y: auto;
+  padding: var(--space-5);
+  display: grid;
+  gap: var(--space-4);
+  animation: modal-in var(--dur-base) var(--ease) both;
+}
+
+@keyframes modal-in {
+  from {
+    transform: translateY(24px);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@media (min-width: 640px) {
+  .modal {
+    border-radius: var(--r-card);
+  }
+}
+
+.modal__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.modal__field {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.modal__label {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+}
+
+.modal__select,
+.modal__input {
+  min-height: 48px;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--r-input);
+  background: var(--color-surface);
+  width: 100%;
+  font-variant-numeric: tabular-nums;
+}
+
+.modal__hint {
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+}
+
+.modal__presets {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.modal__preset {
+  min-height: 36px;
+  padding-inline: var(--space-4);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--r-pill);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  background: var(--color-surface);
+  transition: background-color var(--dur-fast) var(--ease);
+}
+
+.modal__preset.is-active {
+  background: var(--color-surface-brand);
+  border-color: var(--color-surface-brand);
+  color: var(--color-on-brand);
+}
+
+.modal__preview {
+  display: grid;
+  gap: var(--space-2);
+  justify-items: start;
+  padding: var(--space-4);
+  background: var(--color-surface-band);
+  border-radius: var(--r-card);
+}
+
+.modal__preview-label {
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+}
+
+.modal__preview-figure {
+  font-size: var(--fs-figure-lg);
+  font-weight: var(--fw-bold);
+  line-height: 1.05;
+}
+
+.modal__preview-rate {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.modal__fees {
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+}
+
+.modal__actions {
+  display: flex;
+  gap: var(--space-2);
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.modal__done {
+  display: grid;
+  gap: var(--space-3);
+  justify-items: start;
+}
+
+.modal__done-figure {
+  font-size: var(--fs-figure-xl);
+  font-weight: var(--fw-bold);
+  line-height: 1.05;
+}
+
+.modal__done-note {
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+}

@@ -1,0 +1,409 @@
+/* =============================================================================
+   Travel orbits.
+
+   Light, like the rest of the portal. The earlier dark treatment was borrowed
+   from the reference rather than from CommBank, and it made the section read as
+   a different site — the whole point of the module is that this belongs on the
+   travel page, not beside it.
+
+   Yellow stays a fill here as everywhere else: the globe's landmasses, the
+   reach bar, and the live currency chips. Nothing sets it as a text colour.
+   ============================================================================= */
+
+.orbits {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-surface);
+  padding-block: var(--space-12);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.orbits > .container {
+  position: relative;
+}
+
+/* --- Head --------------------------------------------------------------------- */
+
+.orbits__head {
+  text-align: center;
+  max-width: 62ch;
+  margin-inline: auto;
+  margin-bottom: var(--space-8);
+}
+
+.orbits__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--r-pill);
+  background: var(--color-surface-band);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text);
+}
+
+.orbits__title {
+  margin-top: var(--space-5);
+  font-size: var(--fs-h2);
+}
+
+.orbits__lede {
+  margin-top: var(--space-3);
+  color: var(--color-text-muted);
+}
+
+.orbits__foot {
+  margin-top: var(--space-8);
+  text-align: center;
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+  max-width: 70ch;
+  margin-inline: auto;
+}
+
+/* --- Live indicator ------------------------------------------------------------
+   The dot carries the brand colour; the word is ink, because yellow text on
+   white is 1.44:1 and fails at any size. */
+
+.orbit-live {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.orbit-live__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: var(--r-pill);
+  background: var(--color-success);
+  animation: orbit-pulse 2s var(--ease) infinite;
+}
+
+@keyframes orbit-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+/* --- Stage --------------------------------------------------------------------
+   Stacked on small screens. The globe only floats behind the cards once there
+   is genuinely room for both. */
+
+.orbits__stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-6);
+}
+
+.orbits__globe {
+  justify-self: center;
+  width: min(92vw, 420px);
+  aspect-ratio: 1;
+}
+
+.globe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.globe:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 4px;
+}
+
+.orbits__cards {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-3);
+}
+
+@media (min-width: 640px) {
+  .orbits__cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* --- Cards --------------------------------------------------------------------- */
+
+.orbit-card {
+  display: grid;
+  gap: var(--space-3);
+  align-content: start;
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--r-card);
+  background: var(--color-surface);
+}
+
+.orbit-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.orbit-card__title {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text);
+}
+
+.orbit-card__lede {
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
+
+.orbit-card__lede strong {
+  color: var(--color-text);
+  font-weight: var(--fw-bold);
+}
+
+/* --- Global reach ---------------------------------------------------------------- */
+
+.orbit-reach {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.orbit-reach__value {
+  font-size: 3rem;
+  font-weight: var(--fw-bold);
+  line-height: 1;
+  letter-spacing: var(--tracking-tight);
+}
+
+.orbit-reach__bars {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  gap: var(--space-2);
+}
+
+.orbit-reach__track {
+  height: 14px;
+  border-radius: 2px;
+  background: var(--color-surface-band-deep);
+  overflow: hidden;
+}
+
+.orbit-reach__fill {
+  display: block;
+  height: 100%;
+  background: var(--color-surface-brand);
+  transition: width var(--dur-slow) var(--ease);
+}
+
+.orbit-reach__baseline {
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+}
+
+/* --- Fees not charged -------------------------------------------------------------- */
+
+.orbit-fees__value {
+  font-size: 2.5rem;
+  font-weight: var(--fw-bold);
+  line-height: 1;
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-success);
+}
+
+.orbit-fees__foot {
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--color-border);
+}
+
+.orbit-fees__foot strong {
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- Recent spending ---------------------------------------------------------------- */
+
+.orbit-spend {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.orbit-spend__row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--fs-sm);
+  /* Rows shift down as a new one lands; a short fade keeps that from reading
+     as a flicker. */
+  animation: orbit-row-in var(--dur-base) var(--ease) both;
+}
+
+@keyframes orbit-row-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.orbit-spend__icon {
+  flex: none;
+  color: var(--color-text-subtle);
+  display: grid;
+  place-items: center;
+}
+
+.orbit-spend__place {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.orbit-spend__amount {
+  flex: none;
+  font-weight: var(--fw-bold);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* --- Currencies in play ----------------------------------------------------------------
+   A chip per currency the Travel Money Card can hold. `--heat` runs 1 → 0 as a
+   currency cools off, so recent spend reads brighter without popping in and out. */
+
+.orbit-currencies {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+.orbit-currency {
+  display: grid;
+  place-items: center;
+  padding: var(--space-2) var(--space-1);
+  border-radius: var(--r-xs);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.04em;
+  color: var(--color-text-subtle);
+  transition:
+    background-color var(--dur-base) var(--ease),
+    color var(--dur-base) var(--ease),
+    border-color var(--dur-base) var(--ease);
+}
+
+.orbit-currency.is-live {
+  /* Yellow as a fill with near-black text — the only way it stays AA.
+     Flat yellow first so a browser without color-mix still lights the chip
+     rather than silently leaving it looking inactive. */
+  background: var(--cba-yellow);
+  background: color-mix(in srgb, var(--cba-yellow) calc(var(--heat, 1) * 100%), var(--cba-yellow-soft));
+  border-color: var(--cba-yellow);
+  color: var(--color-on-brand);
+  font-weight: var(--fw-bold);
+}
+
+.orbit-currencies__foot {
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+}
+
+/* --- Floating layout ---------------------------------------------------------------------
+   From 1160px the cards leave the grid and orbit the globe. Below that they stay
+   a plain two-column grid, which is the only thing that works on a phone.
+
+   The stage is generously tall and the globe deliberately smaller than the gap
+   between the cards: the earlier version let the cards overlap the disc, which
+   is what made it look cropped. */
+
+@media (min-width: 1160px) {
+  .orbits {
+    padding-block: var(--space-16);
+  }
+
+  .orbits__stage {
+    position: relative;
+    /* Tall enough that the corner cards clear the disc rather than clipping it.
+       The currencies panel is the tallest and sets this figure. */
+    min-height: 800px;
+    display: block;
+  }
+
+  .orbits__globe {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 420px;
+    height: 420px;
+  }
+
+  .orbits__cards {
+    display: block;
+  }
+
+  .orbit-card {
+    position: absolute;
+    width: 320px;
+    background: var(--color-surface);
+  }
+
+  .orbit-card--reach {
+    top: 0;
+    left: 0;
+  }
+
+  .orbit-card--fees {
+    bottom: 0;
+    left: 0;
+  }
+
+  .orbit-card--spend {
+    top: 0;
+    right: 0;
+  }
+
+  .orbit-card--currencies {
+    bottom: 0;
+    right: 0;
+  }
+}
+
+@media (min-width: 1360px) {
+  .orbits__stage {
+    min-height: 840px;
+  }
+
+  .orbits__globe {
+    width: 480px;
+    height: 480px;
+  }
+}

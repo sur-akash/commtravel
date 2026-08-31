@@ -1,0 +1,122 @@
+/* =============================================================================
+   Live feed — sticky day headers over an animating list.
+   ============================================================================= */
+
+.feed {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4);
+}
+
+/* --- Running counter -------------------------------------------------------- */
+
+.feed__counter {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--r-card);
+  background: var(--color-success-surface);
+  position: sticky;
+  /* Sits under the masthead, above the day headers. */
+  top: var(--header-h);
+  z-index: calc(var(--z-sticky) + 1);
+}
+
+.feed__counter-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-pill);
+  background: var(--color-surface);
+  color: var(--color-success);
+}
+
+.feed__counter-body {
+  min-width: 0;
+}
+
+.feed__counter-value {
+  display: block;
+  font-size: var(--fs-figure-lg);
+  font-weight: var(--fw-bold);
+  line-height: 1.05;
+  color: var(--color-success);
+}
+
+/* Haptic-style pop. The element is remounted on each increase via a changing
+   key, so the animation replays rather than running once and never again. */
+.feed__counter-value--pop {
+  animation: counter-pop var(--dur-base) var(--ease-bounce) both;
+  transform-origin: left center;
+}
+
+@keyframes counter-pop {
+  0% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.07);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.feed__counter-label {
+  font-size: var(--fs-sm);
+  color: var(--color-text);
+}
+
+/* --- Days --------------------------------------------------------------------- */
+
+.feed__list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-5);
+}
+
+.feed__day {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-3);
+}
+
+.feed__day-head {
+  position: sticky;
+  /* Below the savings counter, which is itself below the masthead. */
+  top: calc(var(--header-h) + 74px);
+  z-index: var(--z-sticky);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-bold);
+}
+
+.feed__day-items {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-3);
+}
+
+.feed__empty {
+  padding: var(--space-6);
+  border: 1px dashed var(--color-border-strong);
+  border-radius: var(--r-card);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.feed__cap {
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+  text-align: center;
+  padding-top: var(--space-2);
+}

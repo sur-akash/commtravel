@@ -1,0 +1,77 @@
+/* =============================================================================
+   Savings toast.
+   Bottom-left so it never collides with the emergency button bottom-right.
+   ============================================================================= */
+
+.toast {
+  position: fixed;
+  left: var(--space-4);
+  bottom: var(--space-4);
+  z-index: var(--z-toast);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  max-width: min(360px, calc(100vw - var(--space-8)));
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--r-card);
+  background: var(--color-surface-inverse);
+  color: var(--color-text-inverse);
+  box-shadow: var(--shadow-float);
+  animation: toast-in var(--dur-base) var(--ease) both;
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.toast__icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--r-pill);
+  background: var(--color-surface-brand);
+  color: var(--color-on-brand);
+}
+
+.toast__body {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.toast__value {
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-sm);
+}
+
+.toast__label {
+  font-size: var(--fs-xs);
+  color: #d6d3d3;
+}
+
+.toast__close {
+  flex: none;
+  color: #d6d3d3;
+  padding: var(--space-1);
+}
+
+.toast__close:hover {
+  color: var(--color-text-inverse);
+}
+
+@media (min-width: 900px) {
+  .toast {
+    left: var(--space-8);
+    bottom: var(--space-8);
+  }
+}

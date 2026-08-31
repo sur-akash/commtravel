@@ -1,0 +1,369 @@
+/* =============================================================================
+   Transaction receipt — the core visual object of the dashboard.
+
+   Reading order is fixed and deliberate: who and when, then the big local
+   figure, then what that is in AUD, then the rate, then the fee, then which
+   bucket paid. The fee line is always present even when it's zero, because a
+   visible A$0.00 is the entire argument.
+   ============================================================================= */
+
+.receipt {
+  position: relative;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--r-card);
+  padding: var(--space-4);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+@media (min-width: 600px) {
+  .receipt {
+    padding: var(--space-5);
+  }
+}
+
+/* State accents. A 4px left rule rather than a tinted card, so the receipt
+   stays legible and the accent reads as a flag, not a mood. */
+.receipt--dcc {
+  border-left: 4px solid var(--color-warn-edge);
+}
+.receipt--atm {
+  border-left: 4px solid var(--color-info);
+}
+.receipt--declined {
+  border-left: 4px solid var(--color-alert);
+}
+.receipt--suspicious {
+  border-left: 4px solid var(--color-alert);
+}
+.receipt--insurance {
+  border-left: 4px solid var(--color-success);
+}
+
+/* --- Entrance ---------------------------------------------------------------
+   Short slide and fade from the top of the feed. Collapsed to a 1ms no-op by
+   the global reduced-motion rule in base.css. */
+@keyframes receipt-in {
+  from {
+    opacity: 0;
+    transform: translateY(-14px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.receipt.is-new {
+  animation: receipt-in var(--dur-receipt) var(--ease) both;
+}
+
+/* --- Head -------------------------------------------------------------------- */
+
+.receipt__head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.receipt__icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-pill);
+  background: var(--color-surface-band);
+  color: var(--color-text);
+}
+
+.receipt--dcc .receipt__icon {
+  background: var(--color-warn-surface);
+  color: var(--color-warn);
+}
+.receipt--declined .receipt__icon,
+.receipt--suspicious .receipt__icon {
+  background: var(--color-alert-surface);
+  color: var(--color-alert);
+}
+.receipt--atm .receipt__icon {
+  background: var(--color-info-surface);
+  color: var(--color-info);
+}
+.receipt--insurance .receipt__icon {
+  background: var(--color-success-surface);
+  color: var(--color-success);
+}
+
+.receipt__ident {
+  min-width: 0;
+  flex: 1;
+}
+
+.receipt__merchant {
+  font-size: var(--fs-body);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-tight);
+  overflow-wrap: anywhere;
+}
+
+/* Location and time share one line, and the time is never the thing that gets
+   dropped — it's one of the required fields on the receipt. The place name
+   truncates instead. */
+.receipt__meta {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  min-width: 0;
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+}
+
+.receipt__meta-place {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.receipt__meta-time {
+  flex: none;
+  font-variant-numeric: tabular-nums;
+}
+
+.receipt__meta-time::before {
+  content: '·';
+  margin-right: var(--space-2);
+  color: var(--color-text-subtle);
+}
+
+.receipt__head-chip {
+  flex: none;
+}
+
+/* --- Amounts ----------------------------------------------------------------- */
+
+.receipt__amounts {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.receipt__local {
+  font-size: var(--fs-figure-xl);
+  font-weight: var(--fw-bold);
+  line-height: 1.05;
+  color: var(--color-text);
+}
+
+.receipt--declined .receipt__local {
+  color: var(--color-text-subtle);
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+}
+
+.receipt__aud {
+  font-size: var(--fs-figure-md);
+  font-weight: var(--fw-semibold);
+  color: var(--color-text-muted);
+  line-height: 1.2;
+}
+
+/* --- Line items -------------------------------------------------------------- */
+
+.receipt__lines {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+  font-size: var(--fs-sm);
+}
+
+.receipt__line {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.receipt__line dt {
+  color: var(--color-text-muted);
+  flex: none;
+}
+
+.receipt__line dd {
+  margin: 0;
+  text-align: right;
+  font-weight: var(--fw-medium);
+  overflow-wrap: anywhere;
+}
+
+.receipt__line--total {
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--color-border);
+  font-size: var(--fs-body);
+}
+.receipt__line--total dt,
+.receipt__line--total dd {
+  font-weight: var(--fw-bold);
+  color: var(--color-text);
+}
+
+/* The zero that is the whole point. */
+.receipt__fee-zero {
+  color: var(--color-success);
+  font-weight: var(--fw-bold);
+  white-space: nowrap;
+}
+
+.receipt__fee-charged {
+  color: var(--color-alert);
+  font-weight: var(--fw-bold);
+  white-space: nowrap;
+}
+
+/* A money figure must never break mid-number: `A$3.50` wrapping to `A$3.5 / 0`
+   reads as a different amount for the split second before you parse it. */
+.receipt__amount {
+  white-space: nowrap;
+}
+
+.receipt__rate-note {
+  color: var(--color-text-muted);
+  font-weight: var(--fw-regular);
+  white-space: nowrap;
+}
+
+/* --- Banners ----------------------------------------------------------------- */
+
+.receipt__banner {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--r-card);
+  font-size: var(--fs-sm);
+  line-height: var(--lh-body);
+}
+
+.receipt__banner--warn {
+  background: var(--color-warn-surface);
+  color: var(--color-text);
+}
+.receipt__banner--alert {
+  background: var(--color-alert-surface);
+  color: var(--color-text);
+}
+.receipt__banner--info {
+  background: var(--color-info-surface);
+  color: var(--color-text);
+}
+.receipt__banner--success {
+  background: var(--color-success-surface);
+  color: var(--color-text);
+}
+
+.receipt__banner-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: var(--fw-bold);
+}
+
+.receipt__banner--warn .receipt__banner-head {
+  color: var(--color-warn);
+}
+.receipt__banner--alert .receipt__banner-head {
+  color: var(--color-alert);
+}
+.receipt__banner--info .receipt__banner-head {
+  color: var(--color-info);
+}
+.receipt__banner--success .receipt__banner-head {
+  color: var(--color-success);
+}
+
+.receipt__banner-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-1);
+}
+
+/* The side-by-side DCC comparison. Two columns even at 390px — the whole point
+   is seeing the two numbers next to each other. */
+.receipt__compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+  margin-top: var(--space-1);
+}
+
+.receipt__compare-cell {
+  background: var(--color-surface);
+  border-radius: var(--r-xs);
+  padding: var(--space-2) var(--space-3);
+}
+
+.receipt__compare-label {
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+  display: block;
+}
+
+.receipt__compare-value {
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-tight);
+}
+
+.receipt__compare-cell--bad .receipt__compare-value {
+  color: var(--color-text-subtle);
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+}
+
+.receipt__compare-cell--good .receipt__compare-value {
+  color: var(--color-success);
+}
+
+/* --- Explainer disclosure ---------------------------------------------------- */
+
+.receipt__explainer-toggle {
+  align-self: start;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  color: var(--color-text);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.receipt__explainer {
+  font-size: var(--fs-sm);
+  color: var(--color-text);
+  background: var(--color-surface);
+  border-radius: var(--r-xs);
+  padding: var(--space-3);
+}
+
+/* --- Foot --------------------------------------------------------------------- */
+
+.receipt__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* --- Suspicious resolution ----------------------------------------------------- */
+
+.receipt__answer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}

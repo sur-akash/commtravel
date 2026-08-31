@@ -1,0 +1,214 @@
+/* =============================================================================
+   Primitives — Button, Chip, Card, ProgressBar.
+   Every value here resolves to a token. No raw colours, sizes or durations.
+   ============================================================================= */
+
+/* --- Button -----------------------------------------------------------------
+   Pill geometry sampled from the live site: radius 24px, padding 0 24px.
+   The primary is a yellow FILL with near-black text — yellow never carries
+   text itself, which is what keeps it AA. */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 48px;
+  padding-inline: var(--space-6);
+  border-radius: var(--r-pill);
+  border: 1px solid transparent;
+  font-size: var(--fs-body);
+  font-weight: var(--fw-semibold);
+  line-height: 1;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease),
+    transform var(--dur-instant) var(--ease);
+}
+
+.btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn--primary {
+  background: var(--color-surface-brand);
+  border-color: var(--color-surface-brand);
+  color: var(--color-on-brand);
+}
+.btn--primary:hover:not(:disabled) {
+  background: var(--cba-yellow-hover);
+  border-color: var(--cba-yellow-hover);
+}
+
+.btn--secondary {
+  background: transparent;
+  border-color: var(--color-border-strong);
+  color: var(--color-text);
+}
+.btn--secondary:hover:not(:disabled) {
+  background: var(--color-surface-band);
+  border-color: var(--color-text);
+}
+
+.btn--ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--color-text);
+  padding-inline: var(--space-3);
+}
+.btn--ghost:hover:not(:disabled) {
+  background: var(--color-surface-band);
+}
+
+.btn--danger {
+  background: var(--color-alert);
+  border-color: var(--color-alert);
+  color: var(--color-text-inverse);
+}
+.btn--danger:hover:not(:disabled) {
+  background: #8f0016;
+  border-color: #8f0016;
+}
+
+.btn--inverse {
+  background: var(--color-surface);
+  border-color: var(--color-surface);
+  color: var(--color-text);
+}
+
+.btn--sm {
+  min-height: 36px;
+  padding-inline: var(--space-4);
+  font-size: var(--fs-sm);
+}
+
+.btn--block {
+  width: 100%;
+}
+
+/* --- Chip -------------------------------------------------------------------
+   Small status pill. Always a tinted surface with dark-enough text; never a
+   saturated fill with light text at this size. */
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--r-pill);
+  background: var(--color-surface-band);
+  color: var(--color-text-muted);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.chip--success {
+  background: var(--color-success-surface);
+  color: var(--color-success);
+}
+.chip--warn {
+  background: var(--color-warn-surface);
+  color: var(--color-warn);
+}
+.chip--alert {
+  background: var(--color-alert-surface);
+  color: var(--color-alert);
+}
+.chip--info {
+  background: var(--color-info-surface);
+  color: var(--color-info);
+}
+.chip--brand {
+  background: var(--color-surface-brand);
+  color: var(--color-on-brand);
+}
+.chip--outline {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+}
+
+/* --- Card -------------------------------------------------------------------
+   Subtle border, no shadow — the CommBank pattern. */
+
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--r-card);
+  padding: var(--space-5);
+}
+
+.card--flush {
+  padding: 0;
+  overflow: hidden;
+}
+
+.card--band {
+  background: var(--color-surface-band);
+  border-color: transparent;
+}
+
+.card--accent {
+  border-top: 4px solid var(--color-accent-bar);
+}
+
+.card__title {
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-bold);
+  margin-bottom: var(--space-2);
+}
+
+.card__hint {
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+}
+
+/* --- Section label ----------------------------------------------------------
+   The label above a module. Was 12px, which is caption size — too small to
+   carry a section heading like "Cash near you" or "Localised for Japan". At
+   14px with more weight and darker ink it reads as the heading it actually is. */
+
+.eyebrow {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-text);
+  text-transform: uppercase;
+}
+
+/* --- Progress ---------------------------------------------------------------- */
+
+.progress {
+  height: 8px;
+  border-radius: var(--r-pill);
+  background: var(--color-surface-band-deep);
+  overflow: hidden;
+}
+
+.progress__fill {
+  height: 100%;
+  border-radius: var(--r-pill);
+  background: var(--color-text);
+  transition: width var(--dur-slow) var(--ease);
+}
+
+.progress__fill--brand {
+  background: var(--color-surface-brand);
+}
+.progress__fill--success {
+  background: var(--color-success);
+}
+.progress__fill--warn {
+  background: var(--color-warn-edge);
+}

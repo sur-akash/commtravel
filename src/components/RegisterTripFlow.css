@@ -1,0 +1,225 @@
+/* =============================================================================
+   Register trip flow.
+   ============================================================================= */
+
+.register {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.register__progress {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.register__steps {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+}
+
+.register__step {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.register__step.is-current {
+  color: var(--color-text);
+  font-weight: var(--fw-bold);
+}
+
+.register__step-mark {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--r-pill);
+  background: var(--color-surface-band-deep);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+}
+
+.register__step.is-current .register__step-mark {
+  background: var(--color-surface-brand);
+  color: var(--color-on-brand);
+}
+
+.register__step.is-done .register__step-mark {
+  background: var(--color-success);
+  color: var(--color-text-inverse);
+}
+
+.register__panel {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--space-4);
+}
+
+.register__legend {
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-bold);
+  padding: 0;
+}
+
+/* --- Destination ------------------------------------------------------------------ */
+
+.register__popular {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.register__popular-label {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--color-text-muted);
+}
+
+.register__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.register__chip {
+  min-height: 40px;
+  padding-inline: var(--space-4);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--r-pill);
+  background: var(--color-surface);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  transition: background-color var(--dur-fast) var(--ease);
+}
+
+.register__chip:hover {
+  background: var(--color-surface-band);
+}
+
+.register__chip.is-selected {
+  background: var(--color-surface-brand);
+  border-color: var(--color-surface-brand);
+  color: var(--color-on-brand);
+}
+
+.register__chosen {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  padding: var(--space-4);
+  border-radius: var(--r-card);
+  background: var(--color-surface-band);
+}
+
+.register__chosen-city {
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-bold);
+}
+
+/* --- Dates ----------------------------------------------------------------------- */
+
+.register__dates {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-3);
+}
+
+@media (min-width: 560px) {
+  .register__dates {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.register__field {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.register__label {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+}
+
+.register__input {
+  min-height: 48px;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--r-input);
+  background: var(--color-surface);
+  width: 100%;
+}
+
+.register__note {
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+}
+
+.register__warn {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--r-card);
+  background: var(--color-warn-surface);
+  font-size: var(--fs-sm);
+}
+
+.register__warn svg {
+  flex: none;
+  margin-top: 2px;
+  color: var(--color-warn);
+}
+
+/* --- Travellers ------------------------------------------------------------------- */
+
+.register__counter {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.register__counter-value {
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-bold);
+  min-width: 12ch;
+}
+
+.register__summary {
+  padding: var(--space-4);
+  background: var(--color-surface-band);
+  border-radius: var(--r-card);
+}
+
+.register__summary-title {
+  font-weight: var(--fw-bold);
+  margin-bottom: var(--space-3);
+}
+
+.register__gets {
+  display: grid;
+  gap: var(--space-2);
+  font-size: var(--fs-sm);
+}
+
+.register__gets li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+
+.register__gets svg {
+  flex: none;
+  margin-top: 3px;
+  color: var(--color-success);
+}
+
+.register__actions {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}

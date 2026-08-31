@@ -1,0 +1,202 @@
+/* =============================================================================
+   Spend so far — ring, FX tile, category bars, day sparkline.
+   ============================================================================= */
+
+.spend {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-6);
+}
+
+/* --- Ring ---------------------------------------------------------------------- */
+
+.spend__ring-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  flex-wrap: wrap;
+}
+
+.spend__ring-value {
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-bold);
+  line-height: 1.1;
+}
+
+.spend__ring-label {
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+}
+
+.spend__ring-facts {
+  flex: 1;
+  min-width: 140px;
+  display: grid;
+  gap: var(--space-4);
+}
+
+.spend__fact-value {
+  display: block;
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-bold);
+  line-height: 1.1;
+}
+
+.spend__fact-value.is-warn {
+  color: var(--color-warn);
+}
+
+.spend__fact-label {
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+}
+
+/* --- FX tile -------------------------------------------------------------------- */
+
+.spend__fx {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--r-card);
+}
+
+.spend__fx--ahead {
+  background: var(--color-success-surface);
+}
+
+.spend__fx--behind {
+  background: var(--color-alert-surface);
+}
+
+.spend__fx-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-pill);
+  background: var(--color-surface);
+}
+
+.spend__fx--ahead .spend__fx-icon {
+  color: var(--color-success);
+}
+
+.spend__fx--behind .spend__fx-icon {
+  color: var(--color-alert);
+}
+
+.spend__fx-value {
+  display: block;
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-bold);
+  line-height: 1.1;
+}
+
+.spend__fx--ahead .spend__fx-value {
+  color: var(--color-success);
+}
+
+.spend__fx--behind .spend__fx-value {
+  color: var(--color-alert);
+}
+
+.spend__fx-label {
+  font-size: var(--fs-sm);
+  color: var(--color-text);
+}
+
+/* --- Saved ---------------------------------------------------------------------- */
+
+.spend__saved {
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-accent-bar);
+  border-radius: var(--r-card);
+}
+
+.spend__saved-value {
+  display: block;
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-bold);
+  line-height: 1.1;
+}
+
+.spend__saved-label {
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+}
+
+/* --- Category bars --------------------------------------------------------------- */
+
+.spend__bars {
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+.spend__bar-row {
+  display: grid;
+  grid-template-columns: minmax(96px, auto) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--fs-sm);
+}
+
+.spend__bar-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.spend__bar-track {
+  height: 10px;
+  border-radius: var(--r-pill);
+  background: var(--color-surface-band-deep);
+  overflow: hidden;
+}
+
+.spend__bar-fill {
+  display: block;
+  height: 100%;
+  border-radius: var(--r-pill);
+  background: var(--color-text);
+  transition: width var(--dur-slow) var(--ease);
+}
+
+.spend__bar-value {
+  font-weight: var(--fw-semibold);
+  white-space: nowrap;
+}
+
+@media (max-width: 420px) {
+  /* At the narrowest width the label and figure share a row above the bar,
+     rather than squeezing three columns into 358px. */
+  .spend__bar-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .spend__bar-track {
+    grid-column: 1 / -1;
+    order: 3;
+  }
+}
+
+/* --- By day ---------------------------------------------------------------------- */
+
+.spend__days {
+  margin-top: var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--r-card);
+}
+
+.spend__days-axis {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-2);
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+}

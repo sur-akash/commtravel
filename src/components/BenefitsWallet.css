@@ -1,0 +1,114 @@
+/* =============================================================================
+   Benefits wallet.
+   ============================================================================= */
+
+.wallet {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-3);
+}
+
+@media (min-width: 860px) {
+  .wallet--grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.wallet__card {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--r-card);
+  background: var(--color-surface);
+  align-content: start;
+}
+
+.wallet__card--blocked,
+.wallet__card--needs-activation {
+  border-left: 4px solid var(--color-warn-edge);
+}
+
+.wallet__card--active {
+  border-left: 4px solid var(--color-success);
+}
+
+.wallet__head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.wallet__icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-pill);
+  background: var(--color-surface-band);
+  color: var(--color-text);
+}
+
+.wallet__ident {
+  flex: 1;
+  min-width: 0;
+}
+
+.wallet__name {
+  display: block;
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-tight);
+}
+
+.wallet__source {
+  display: block;
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+}
+
+.wallet__headline {
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-tight);
+}
+
+.wallet__detail {
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+}
+
+.wallet__progress {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.wallet__progress-label {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+}
+
+/* Lounge visits, as filled and unfilled pips. */
+.wallet__pips {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.wallet__pip {
+  width: 36px;
+  height: 8px;
+  border-radius: var(--r-pill);
+  background: var(--color-success);
+}
+
+.wallet__pip.is-used {
+  background: var(--color-surface-band-deep);
+}
+
+.wallet__expiry {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+}

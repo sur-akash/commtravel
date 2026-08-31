@@ -1,0 +1,262 @@
+/* =============================================================================
+   App shell — header, navigation, footer, and the always-reachable emergency
+   affordance that sits over everything while a trip is active.
+   ============================================================================= */
+
+.shell {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.shell__main {
+  flex: 1;
+}
+
+/* --- Header ------------------------------------------------------------------ */
+
+.masthead {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-header);
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.masthead__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: var(--header-h);
+}
+
+.masthead__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  text-decoration: none;
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-h4);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text);
+  flex: none;
+}
+
+.masthead__brand:hover {
+  text-decoration: none;
+}
+
+.masthead__spacer {
+  flex: 1;
+}
+
+.masthead__status {
+  display: none;
+}
+
+@media (min-width: 720px) {
+  .masthead__status {
+    display: inline-flex;
+  }
+}
+
+/* --- Navigation --------------------------------------------------------------
+   One horizontal row at every size. On narrow screens it scrolls sideways
+   rather than collapsing into a menu — five destinations is few enough that
+   hiding them behind a button costs more than it saves. */
+
+.nav {
+  border-top: 1px solid var(--color-border);
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.nav::-webkit-scrollbar {
+  display: none;
+}
+
+.nav__list {
+  display: flex;
+  gap: var(--space-1);
+  min-width: max-content;
+}
+
+.nav__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-3);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--color-text-muted);
+  text-decoration: none;
+  border-bottom: 3px solid transparent;
+  white-space: nowrap;
+  transition:
+    color var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease);
+}
+
+.nav__link:hover {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+/* The active tab is marked with the brand rule beneath it — yellow doing the
+   job it is allowed to do, rather than colouring the label. */
+.nav__link[aria-current='page'] {
+  color: var(--color-text);
+  border-bottom-color: var(--color-accent-bar);
+}
+
+@media (min-width: 720px) {
+  .nav {
+    border-top: 0;
+  }
+
+  .nav__link {
+    padding-inline: var(--space-4);
+  }
+}
+
+/* On wide screens the nav moves up onto the masthead bar itself. */
+@media (min-width: 900px) {
+  .masthead__inner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+  }
+
+  .masthead__bar {
+    flex: none;
+  }
+
+  .nav {
+    flex: 1;
+    overflow: visible;
+  }
+}
+
+/* --- Footer ------------------------------------------------------------------ */
+
+.footer {
+  margin-top: var(--space-16);
+  background: var(--color-surface-band);
+  border-top: 1px solid var(--color-border);
+  padding-block: var(--space-8);
+}
+
+.footer__inner {
+  display: grid;
+  gap: var(--space-6);
+}
+
+@media (min-width: 720px) {
+  .footer__inner {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+  }
+}
+
+.footer__disclaimer {
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+  max-width: 62ch;
+}
+
+.footer__meta {
+  margin-top: var(--space-2);
+  font-size: var(--fs-xs);
+  color: var(--color-text-subtle);
+}
+
+/* --- Emergency affordance -----------------------------------------------------
+   Persistent while a trip is active. Bottom-right so it never covers the top of
+   the live feed, and it sits above the toast layer's stacking context. */
+
+.sos {
+  position: fixed;
+  right: var(--space-4);
+  bottom: var(--space-4);
+  z-index: var(--z-panel);
+  box-shadow: var(--shadow-float);
+}
+
+.sos--locked {
+  background: var(--color-alert);
+  border-color: var(--color-alert);
+  color: var(--color-text-inverse);
+}
+
+@media (min-width: 900px) {
+  .sos {
+    right: var(--space-8);
+    bottom: var(--space-8);
+  }
+}
+
+/* --- Emergency drawer ---------------------------------------------------------- */
+
+.drawer__scrim {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  background: rgba(35, 31, 32, 0.5);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  animation: scrim-in var(--dur-fast) var(--ease) both;
+}
+
+@keyframes scrim-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (min-width: 720px) {
+  .drawer__scrim {
+    align-items: center;
+    padding: var(--space-6);
+  }
+}
+
+.drawer {
+  background: var(--color-surface);
+  border-radius: var(--r-card) var(--r-card) 0 0;
+  width: 100%;
+  max-width: 560px;
+  max-height: 88dvh;
+  overflow-y: auto;
+  padding: var(--space-5);
+  animation: drawer-in var(--dur-base) var(--ease) both;
+}
+
+@keyframes drawer-in {
+  from {
+    transform: translateY(24px);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@media (min-width: 720px) {
+  .drawer {
+    border-radius: var(--r-card);
+  }
+}
+
+.drawer__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}

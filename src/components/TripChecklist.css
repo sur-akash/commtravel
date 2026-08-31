@@ -1,0 +1,104 @@
+/* =============================================================================
+   Trip checklist.
+   ============================================================================= */
+
+.checklist {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4);
+}
+
+.checklist__summary {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.checklist__summary-text {
+  font-size: var(--fs-body);
+}
+
+.checklist__summary-note {
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+}
+
+.checklist__list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-1);
+}
+
+.checklist__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border-radius: var(--r-card);
+  border: 1px solid transparent;
+}
+
+.checklist__item--attention {
+  background: var(--color-warn-surface);
+}
+
+.checklist__item--alert {
+  background: var(--color-alert-surface);
+}
+
+.checklist__mark {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--r-pill);
+  margin-top: 1px;
+}
+
+.checklist__mark--done {
+  background: var(--color-success);
+  color: var(--color-text-inverse);
+}
+
+.checklist__mark--attention {
+  background: var(--color-warn-edge);
+  color: var(--color-text-inverse);
+}
+
+.checklist__mark--alert {
+  background: var(--color-alert);
+  color: var(--color-text-inverse);
+}
+
+.checklist__mark--neutral {
+  background: var(--color-surface-band-deep);
+  color: var(--color-text-muted);
+}
+
+.checklist__body {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  gap: var(--space-1);
+}
+
+.checklist__label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: var(--fw-semibold);
+}
+
+.checklist__detail {
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+}
+
+.checklist__item--attention .checklist__detail,
+.checklist__item--alert .checklist__detail {
+  color: var(--color-text);
+}
+
+.checklist__action {
+  margin-top: var(--space-2);
+}
