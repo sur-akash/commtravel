@@ -82,6 +82,8 @@ const paths = {
   arrowUp: <path d="M12 19V5m0 0-6 6m6-6 6 6" />,
   arrowDown: <path d="M12 5v14m0 0 6-6m-6 6-6-6" />,
   arrowRight: <path d="M5 12h14m0 0-6-6m6 6-6 6" />,
+  /* The conventional "leaves this site" mark on an external link. */
+  arrowUpRight: <path d="M7 17 17 7m0 0H8m9 0v9" />,
   chevronDown: <path d="m6 9.5 6 6 6-6" />,
   play: <path d="M7.5 5.5 18.5 12l-11 6.5v-13Z" strokeLinejoin="round" />,
   pause: <path d="M9 5.5v13M15 5.5v13" />,

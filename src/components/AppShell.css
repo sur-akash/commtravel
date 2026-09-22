@@ -260,3 +260,47 @@
   gap: var(--space-4);
   margin-bottom: var(--space-4);
 }
+
+/* --- Byline ------------------------------------------------------------------
+   The last line on every page. Sits below the disclaimer block, separated by a
+   hairline, and wraps as a whole rather than orphaning a separator: each link
+   and its trailing dot are one inline unit. */
+
+.footer__byline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  /* No column gap: the separators carry their own margins, and a flex gap on
+     top of that would space the dots between flex children wider than the ones
+     tucked inside a link's wrapper. Row gap still applies when it wraps. */
+  column-gap: 0;
+  row-gap: var(--space-2);
+  margin-top: var(--space-6);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+}
+
+.footer__sep {
+  margin-inline: var(--space-2);
+  color: var(--color-text-subtle);
+}
+
+.footer__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-weight: var(--fw-semibold);
+  color: var(--color-text);
+  text-decoration-color: var(--color-border-strong);
+}
+
+.footer__link:hover {
+  text-decoration-color: currentColor;
+}
+
+.footer__link svg {
+  /* Nudged up so the arrow sits on the cap height rather than the baseline. */
+  margin-top: -2px;
+}

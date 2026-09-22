@@ -18,6 +18,13 @@ const ROUTES = [
   { to: '/emergency', label: 'Emergency' },
 ]
 
+/** Byline links, in the footer of every page. */
+const BYLINE_LINKS = [
+  { label: 'GitHub', href: 'https://github.com/sur-akash' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/akash-sur/' },
+  { label: 'Website', href: 'https://sur-akash.github.io/' },
+]
+
 /* -----------------------------------------------------------------------------
    Emergency drawer
    -------------------------------------------------------------------------- */
@@ -167,6 +174,33 @@ export default function AppShell({ children }) {
           <Button variant="secondary" size="sm" icon="refresh" onClick={actions.resetDemo}>
             Reset demo
           </Button>
+        </div>
+
+        {/* Byline, last thing on every page. External links open in a new tab —
+            rel="noopener" because a target="_blank" link otherwise hands the
+            opened page a reference back to this one. */}
+        <div className="container footer__byline">
+          <span>Built by Akash Sur</span>
+          <span className="footer__sep" aria-hidden="true">
+            ·
+          </span>
+          {BYLINE_LINKS.map((link, index) => (
+            <span key={link.label}>
+              <a
+                className="footer__link"
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {link.label}
+                <Icon name="arrowUpRight" size={12} />
+              </a>
+              <span className="footer__sep" aria-hidden="true">
+                ·
+              </span>
+            </span>
+          ))}
+          <span>data is illustrative</span>
         </div>
       </footer>
 
